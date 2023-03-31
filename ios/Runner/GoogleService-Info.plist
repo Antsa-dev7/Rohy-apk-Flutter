@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>501598751191-4cm1m12hpvnnsa34pslal07o2d51q3q3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.501598751191-4cm1m12hpvnnsa34pslal07o2d51q3q3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>501598751191-6jl7r6j3etkfmg5eci0d28n3rpgeg84i.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBTg3YOXPAXyKrATN-J6uBbaWp6lviY5U8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>501598751191</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rohy.rohy</string>
+	<key>PROJECT_ID</key>
+	<string>rohy-60d0d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rohy-60d0d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:501598751191:ios:7d006ce37cfec452f02392</string>
+</dict>
+</plist>

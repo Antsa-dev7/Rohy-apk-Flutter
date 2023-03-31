@@ -1,0 +1,138 @@
+{
+  "project_info": {
+    "project_number": "501598751191",
+    "project_id": "rohy-60d0d",
+    "storage_bucket": "rohy-60d0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501598751191:android:7622e8330bcffa93f02392",
+        "android_client_info": {
+          "package_name": "com.rohy.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501598751191-6jl7r6j3etkfmg5eci0d28n3rpgeg84i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "0e93c5c6d65eaabd2b953e3d9c70c04752dcbd96"
+          }
+        },
+        {
+          "client_id": "501598751191-dh42031ruhbgenpi1gcu2j8513hi8af0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "42f7b83a367a475c426b156e568aa512a8cf8ce5"
+          }
+        },
+        {
+          "client_id": "501598751191-mgoaa0fc037v8mpl0cl5v0e0gbhjfth6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "bac078863bca5eb3c829f889d0c26dac8acd3d5c"
+          }
+        },
+        {
+          "client_id": "501598751191-mtshsmamuk91gb87stagm05h28j15s9r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "18f57ad7dbc351f56b44beba692467ef697f8bbc"
+          }
+        },
+        {
+          "client_id": "501598751191-patjpktbdo8b3j0eqefcjfmsvikrr9lf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "80a7f761baa6ba5cb7d4dd0dedd3e057d449aaf1"
+          }
+        },
+        {
+          "client_id": "501598751191-r8qa1u19rp68eeconlb7c85bh8lvps4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "bda30a61521028b17f9bb38446a6c9e0a1229551"
+          }
+        },
+        {
+          "client_id": "501598751191-seid357bpcaonpunntmitg6fqp88ah9i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rohy.prod",
+            "certificate_hash": "dfc1c0884f930c184ae31cdce33458de3aa79b78"
+          }
+        },
+        {
+          "client_id": "501598751191-d1840but7f31gtjhv12j0h8tlj77abl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPTKez1Mx68JyjtnA-1rPlqoJg9V6KpEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501598751191-d1840but7f31gtjhv12j0h8tlj77abl0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "501598751191-4cm1m12hpvnnsa34pslal07o2d51q3q3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rohy.rohy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501598751191:android:789800f2403a32a8f02392",
+        "android_client_info": {
+          "package_name": "com.rohy.rohy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501598751191-d1840but7f31gtjhv12j0h8tlj77abl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPTKez1Mx68JyjtnA-1rPlqoJg9V6KpEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501598751191-d1840but7f31gtjhv12j0h8tlj77abl0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "501598751191-4cm1m12hpvnnsa34pslal07o2d51q3q3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rohy.rohy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

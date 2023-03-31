@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">rohy</string>
+    <string name="facebook_app_id">1131284151112408</string>
+    <string name="fb_login_protocol_scheme">fb1131284151112408</string>
+    <string name="facebook_client_token">995d7826d1094e032adfcfbeb7673a8c</string>
+</resources>
