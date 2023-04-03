@@ -11,7 +11,8 @@ class LoginLogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = FirebaseAuth.instance.currentUser;
     return TextButton.icon(
-      onPressed: () {
+      onPressed: () async {
+        await logout();
         if (user == null) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -21,7 +22,6 @@ class LoginLogoutButton extends StatelessWidget {
                   (route) => false);
         }
         else {
-          logout();
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
