@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rohy/ui/providers/home_screen.dart';
+import 'package:rohy/ui/screens/contact.dart';
 import 'package:rohy/ui/screens/post/add_edit_post.dart';
 import 'package:rohy/ui/screens/post/list.dart';
 import 'package:rohy/ui/screens/user/edit.dart';
@@ -12,6 +13,7 @@ import '../widgets/bottombar/bottombar.dart';
 class HomeScreen extends StatelessWidget {
 
   static final List<Widget>  _widgets = <Widget>[
+    ContactScreen(),
     PostsScreen(),
     AddEditPostScreen(),
     EditProfileScreen()
