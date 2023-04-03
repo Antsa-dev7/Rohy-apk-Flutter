@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rohy/constants.dart';
+import 'package:rohy/ui/providers/home_screen.dart';
 import 'package:rohy/ui/screens/home.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -12,7 +13,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(RohyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
+  ], child: const RohyApp()));
+
 }
 
 class RohyApp extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rohy/constants.dart';
 import 'package:rohy/ui/widgets/appbar/avatar.dart';
+import 'package:rohy/ui/widgets/appbar/logo.dart';
 import 'package:rohy/ui/widgets/appbar/popupmenu.dart';
 import 'package:rohy/ui/widgets/appbar/searchbar.dart';
 
@@ -14,12 +15,12 @@ class AppBarWidget extends AppBar {
               offset: Offset(15, 5),
               child: Builder(
                 builder: (BuildContext context) {
-                  return IconButton(
-                      onPressed: (){
-                        Scaffold.of(context).openDrawer();
-                  }, icon: Image.asset("assets/icons/logo.png"));
+                 return LogoWidget();
                 },
               ),
             ),
             actions: [SearchWidget(), AvatarWidget(), PopupMenuWidget()]);
+
 }
+
+

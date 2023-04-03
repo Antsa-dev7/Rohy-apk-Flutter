@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:rohy/ui/providers/home_screen.dart';
 
 class AvatarWidget extends StatelessWidget {
   const AvatarWidget({Key? key}) : super(key: key);
@@ -25,7 +27,9 @@ class AvatarWidget extends StatelessWidget {
                       backgroundImage: NetworkImage(
                           "${FirebaseAuth.instance.currentUser?.photoURL}")),
           label: const Text("", style: TextStyle(fontSize: 10, color: Colors.white)),
-          onPressed: () => {},
+          onPressed: () => {
+            Provider.of<HomeScreenProvider>(context, listen: false).setIndex(2),
+          },
         ),
       ),
     );

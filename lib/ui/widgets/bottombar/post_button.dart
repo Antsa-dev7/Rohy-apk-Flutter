@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rohy/constants.dart';
+import 'package:rohy/ui/providers/home_screen.dart';
 
 class PostButton extends StatelessWidget {
   const PostButton({Key? key}) : super(key: key);
@@ -8,7 +10,7 @@ class PostButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton.icon(
       onPressed: () {
-        print("Add post pressed");
+        Provider.of<HomeScreenProvider>(context, listen: false).setIndex(1);
       },
       icon: Container(
         decoration: BoxDecoration(
