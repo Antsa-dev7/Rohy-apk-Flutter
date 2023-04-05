@@ -36,7 +36,6 @@ class FirebaseSignInByGoogle {
           authResult = await _auth.signInWithCredential(credential);
         }
       }
-
       final googleUser = FirebaseAuth.instance.currentUser;
       return googleUser != null;
 

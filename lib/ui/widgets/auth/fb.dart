@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rohy/infrastructure/iam/sign_fb.dart';
-import 'package:rohy/infrastructure/iam/sign_google.dart';
 import 'package:rohy/ui/screens/home.dart';
 import 'package:rohy/ui/widgets/custom_button.dart';
 

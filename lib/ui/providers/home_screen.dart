@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomeScreenProvider extends ChangeNotifier{
   int _index  = 0;
