@@ -39,14 +39,21 @@ const TextStyle titleStyle = TextStyle(
 
 // headerText
 const TextStyle postTitleStyle = TextStyle(
-  fontSize: 13,
+  fontSize: 15,
   color: quinaryColor,
   fontWeight: FontWeight.normal,
   letterSpacing: 1,
 );
 
+const TextStyle postContentStyle = TextStyle(
+  fontSize: 15,
+  color: Colors.black,
+  fontWeight: FontWeight.normal,
+  letterSpacing: 1,
+);
+
 const TextStyle postHeaderTitleStyle = TextStyle(
-  fontSize: 14,
+  fontSize: 16,
   color: primaryColor,
   fontWeight: FontWeight.normal,
   letterSpacing: 1,
@@ -67,9 +74,11 @@ const TextStyle headerTitleStyle = TextStyle(
   letterSpacing: 1,
 );
 
+
+
 // tabTitleStyle
 const TextStyle tabTitleStyle = TextStyle(
-  fontSize: 14,
+  fontSize: 16,
   color: Colors.black,
   letterSpacing: 0,
 );

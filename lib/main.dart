@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rohy/constants.dart';
 import 'package:rohy/ui/providers/home_screen.dart';
+import 'package:rohy/ui/providers/user_provider.dart';
 import 'package:rohy/ui/screens/home.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -15,6 +16,7 @@ void main() async {
   );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
+    ChangeNotifierProvider(create: (context) => UserProvider()),
   ], child: const RohyApp()));
 
 }

@@ -4,6 +4,7 @@ import 'package:rohy/ui/providers/home_screen.dart';
 import 'package:rohy/ui/screens/contact.dart';
 import 'package:rohy/ui/screens/post/add_edit_post.dart';
 import 'package:rohy/ui/screens/post/list.dart';
+import 'package:rohy/ui/screens/post_enterprise_tab.dart';
 import 'package:rohy/ui/screens/user/edit.dart';
 import 'package:rohy/ui/widgets/appbar/appbar.dart';
 
@@ -13,8 +14,8 @@ import '../widgets/bottombar/bottombar.dart';
 class HomeScreen extends StatelessWidget {
 
   static final List<Widget>  _widgets = <Widget>[
+    PostAndEnterpriseTab(),
     ContactScreen(),
-    PostsScreen(),
     AddEditPostScreen(),
     EditProfileScreen()
   ];
@@ -24,9 +25,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => print('i was tapped!'),
-        child: Container(
+    return Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -38,6 +37,6 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 appBar: AppBarWidget(),
                 body: _widgets[Provider.of<HomeScreenProvider>(context, listen: true).index],
-                bottomNavigationBar: BottomBarWidget())));
+                bottomNavigationBar: BottomBarWidget()));
   }
 }
