@@ -26,9 +26,10 @@ class AvatarWidget extends StatelessWidget {
                   : CircleAvatar(
                       backgroundImage: NetworkImage(
                           "${FirebaseAuth.instance.currentUser?.photoURL}")),
-          label: const Text("", style: TextStyle(fontSize: 10, color: Colors.white)),
+          label: const Text("",
+              style: TextStyle(fontSize: 10, color: Colors.white)),
           onPressed: () => {
-            Provider.of<HomeScreenProvider>(context, listen: false).setIndex(2),
+            Provider.of<HomeScreenProvider>(context, listen: false).setIndex(3),
           },
         ),
       ),
