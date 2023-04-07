@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
 
 class FirebaseSignInByMail {
   final FirebaseAuth _auth;
@@ -16,5 +17,17 @@ class FirebaseSignInByMail {
       print(e);
       return false;
     }
+  }
+
+  static Future updatePassword({
+    required String password,
+  }) async {
+    Logger _logger = Logger();
+    User user = FirebaseAuth.instance.currentUser!;
+    user.updatePassword(password).then((_) {
+      _logger.i("Successfully changed password");
+    }).catchError((error) {
+      _logger.i("Password can't be changed" + error.toString());
+    });
   }
 }
