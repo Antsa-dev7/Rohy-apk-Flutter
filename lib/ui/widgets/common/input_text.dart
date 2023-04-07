@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'custom_form_field.dart';
-
-class InputText extends StatefulWidget {
+class InputText extends StatelessWidget {
   TextEditingController textEditingController;
   String hintText;
   String errorText;
@@ -18,28 +17,27 @@ class InputText extends StatefulWidget {
     this.validator,
   }) : super(key: key);
 
-  @override
-  State<InputText> createState() => _InputTextState();
-}
-
-class _InputTextState extends State<InputText> {
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: [
-          CustomFormField(
-            controller: widget.textEditingController,
-            hintText: widget.hintText,
-            errorHintText: widget.errorText,
-            validator: widget.validator,
-            maxLines: 1,
-            type: TextInputType.text,
-            isNumber: false,
-          ),
-          SizedBox(height: 16.0),
-        ],
+      children: [
+        CustomFormField(
+          controller: textEditingController,
+          hintText: hintText,
+          errorHintText: errorText,
+          validator: validator,
+          maxLines: 1,
+          type: TextInputType.text,
+          isNumber: false,
+        ),
+        SizedBox(height: 16.0),
+      ],
     );
   }
 }
+
+
+
+
