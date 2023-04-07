@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:rohy/constants.dart';
 import 'package:rohy/ui/providers/home_screen.dart';
 
+import '../../providers/notification.dart';
+
 class PostButton extends StatelessWidget {
   const PostButton({Key? key}) : super(key: key);
 
