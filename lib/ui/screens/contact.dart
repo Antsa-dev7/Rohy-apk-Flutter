@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rohy/application/use_cases/add_contact_use_case.dart';
+import 'package:rohy/application/use_cases/add_contact.dart';
 import 'package:rohy/domain/contact/contact.dart';
 
 class ContactScreen extends StatefulWidget {

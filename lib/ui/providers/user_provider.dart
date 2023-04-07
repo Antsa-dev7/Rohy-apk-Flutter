@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:rohy/domain/user/user.dart';
 
 class UserProvider extends ChangeNotifier {
-  RohyUser _user = RohyUser();
+  RohyUser? _user;
 
-  RohyUser get user {
+  RohyUser? get user {
     return _user;
   }
 
@@ -15,5 +15,9 @@ class UserProvider extends ChangeNotifier {
       _user = user;
       notifyListeners();
     });
+  }
+
+  void unSetUser() {
+    _user = null;
   }
 }

@@ -19,6 +19,7 @@ class DirectoryRepository {
         .collection("users")
         .doc(uid)
         .get();
+
     final docSnap = await ref;
     if (docSnap.data() == null) return RohyUser();
     return RohyUser.fromJson(docSnap.data()!);
@@ -175,5 +176,27 @@ class DirectoryRepository {
           .set(user.toMap());
 
       return user;
+  }
+
+  Future<void> addOrUpdateUserPostReaction(RohyUser user, String postId, String type) async {
+    RohyUser rohyUser = await readRohyUser(user.uid);
+    if (rohyUser.postReactions == null)
+      rohyUser.postReactions = {};
+    rohyUser.postReactions![postId] = type;
+    await _firestore
+        .collection("users")
+        .doc(user.uid)
+        .set(rohyUser.toMap());
+  }
+
+  Future<void> addOrUpdateUserPostVote(RohyUser user, String postId, double vote) async {
+    RohyUser rohyUser = await readRohyUser(user.uid);
+    if (rohyUser.postVotes == null)
+      rohyUser.postVotes = {};
+    rohyUser.postVotes![postId] = vote;
+    await _firestore
+        .collection("users")
+        .doc(user.uid)
+        .set(rohyUser.toMap());
   }
 }

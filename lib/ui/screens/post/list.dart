@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
-import 'package:rohy/application/use_cases/list_post_use_case.dart';
+import 'package:rohy/application/use_cases/list_post.dart';
 import 'package:rohy/domain/post/post.dart';
 import 'package:rohy/domain/user/user.dart';
+import 'package:rohy/ui/providers/user_interaction_provider.dart';
 import 'package:rohy/ui/providers/user_provider.dart';
 import 'package:rohy/ui/widgets/comments.dart';
 import 'package:rohy/ui/widgets/post/post_item.dart';
@@ -51,14 +52,44 @@ class _PostsScreenState extends State<PostsScreen> {
     return FutureBuilder<List<Post>>(
       future: listPostUseCase.execute(),
       builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
-        RohyUser user = Provider.of<UserProvider>(context, listen: false).user;
-        Logger().i(user.postVotes);
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [CircularProgressIndicator()]);
         }
         if (snapshot.hasData) {
+
+          // Init data from user info
+          Map<String, Map<dynamic, dynamic>> reactionsSummaries = {};
+          Map<String, String> reactions = {};
+          Map<String, Map<dynamic, dynamic>> votesSummaries = {};
+          Map<String, double> votes = {};
+
+          RohyUser? rohyUser = Provider.of<UserProvider>(context, listen: false).user;
+
+          snapshot.data?.forEach((element) {
+            if (element.reactionDetails != null) {
+              reactionsSummaries[element.id] = element.reactionDetails!;
+            }
+            votesSummaries[element.id] = { "votants": element.votants, "averageVote": element.averageVotes };
+
+            if (rohyUser != null) {
+              if (rohyUser.postReactions != null)
+                if (rohyUser.postReactions!.containsKey(element.id)) {
+                  reactions[element.id] = rohyUser.postReactions![element.id]!;
+                }
+              if (rohyUser.postVotes != null)
+                if (rohyUser.postVotes!.containsKey(element.id)) {
+                  votes[element.id] = rohyUser.postVotes![element.id];
+                }
+            }
+          });
+
+          Provider.of<UserInteractionProvider>(context, listen: false ).setReactionsSummaries(reactionsSummaries);
+          Provider.of<UserInteractionProvider>(context, listen: false ).setVotesSummaries(votesSummaries);
+          Provider.of<UserInteractionProvider>(context, listen: false ).setReactions(reactions);
+          Provider.of<UserInteractionProvider>(context, listen: false ).setVotes(votes);
+
           return ListView.separated(
             controller: _controller,
             itemCount: snapshot.data!.length,
@@ -89,22 +120,18 @@ class _PostsScreenState extends State<PostsScreen> {
                             Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  // ReactionSummary(summary: snapshot.data![index].reaction),
-                                  ReactionSummary(summary: { "love": 1, "like": 300}),
+                                  ReactionSummary(objectId: snapshot.data![index].id),
                                   Spacer(),
-                                  CommentSummary(count: 10),
-                                  Spacer(),
-                                  VoteSummary(votants: snapshot.data![index].votants, averageVotes: snapshot.data![index].averageVotes)
+                                  VoteSummary(objectId: snapshot.data![index].id)
                                 ]
                             ),
                             Divider(),
                             Row(
                               children: [
-                                ReactionWidget(reaction: 'love',),
+                                ReactionWidget(objectId: snapshot.data![index].id),
+                                CommentSummary(count: 10),
                                 Spacer(),
-                                CommentsWidget(),
-                                Spacer(),
-                                VoteWidget()
+                                VoteWidget(objectId: snapshot.data![index].id)
                               ],
                             ),
                           ]

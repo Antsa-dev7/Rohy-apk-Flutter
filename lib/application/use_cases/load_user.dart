@@ -14,12 +14,6 @@ class LoadUserUseCase {
     // Load Enterprise Votes
     List<EntepriseVote> votes = await _repository.readRohyUserEnterpriseVotes(uid);
     user.enterpriseVotes = votes;
-    // Load Post Votes
-    List<PostVote> postVotes = await _repository.readRohyUserPostVotes(uid);
-    user.postVotes = postVotes;
-    // Load Post Reactions
-    List<ReactionPost> reactionsPost = await _repository.readRohyUserPostReactions(uid);
-    user.postReactions = reactionsPost;
     return user;
   }
 }

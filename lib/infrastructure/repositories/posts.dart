@@ -24,14 +24,15 @@ class PostRepository {
     postReference.set(post.toMap());
   }
 
-  Future<void> updatePostReaction(String postId, int reactions) async {
+  Future<void> updatePostReaction(String postId, int reactions, Map<String?, int> reactionDetails) async {
     final ref = _firestore
         .collection(_collectionName)
         .doc(postId)
         .get();
     final docSnap = await ref;
     var post = Post.fromJson(docSnap.data()!);
-    post.reactions = reactions;
+    post.countReactions = reactions;
+    post.reactionDetails = reactionDetails;
     DocumentReference postReference = _firestore.collection(
         _collectionName).doc(postId);
     postReference.set(post.toMap());
@@ -148,7 +149,6 @@ class PostRepository {
     var reactionData = reactionSnapshot.docs.map((doc) => doc.data()).toList();
     var doc = _reactionReference.doc();
     if (reactionData.isNotEmpty) {
-      // doc = _voteReference.doc((Vote.fromJson(voteData[0] as Map<String, dynamic>);
       doc = _reactionReference.doc(ReactionPost
           .fromMap(reactionData[0] as Map)
           .id);
@@ -159,29 +159,6 @@ class PostRepository {
     reaction.type = type;
     reaction.rohyUser = user.toMap();
     await doc.set(reaction.toJson());
-  }
-
-  Future<void> addOrUpdateUserPostReaction(RohyUser user, String postId, String type) async {
-    if (user.uid != null) {
-      DocumentReference userReference = _firestore.collection(
-          "users").doc(user.uid);
-      CollectionReference reactionReference = userReference.collection(
-          "reactionsPost");
-      QuerySnapshot reactionSnapshot = await reactionReference.where(
-          "postId", isEqualTo: postId).get();
-      final reactionData = reactionSnapshot.docs.map((doc) => doc.data()).toList();
-      var doc = reactionReference.doc();
-      if (reactionData.isNotEmpty) {
-        doc = reactionReference.doc(PostVote
-            .fromMap(reactionData[0] as Map)
-            .id);
-      }
-      ReactionPost _reaction = ReactionPost();
-      _reaction.id = doc.id;
-      _reaction.type = type;
-      _reaction.postId = postId;
-      await doc.set(_reaction.toJson());
-    }
   }
 
   Future<List<ReactionPost>> loadReactions(String postId) async {
