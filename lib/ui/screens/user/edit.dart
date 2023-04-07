@@ -16,21 +16,34 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  bool isSocialLogin = false;
 
   // Définition des TextEditingController pour les champs de saisie
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _birthdayController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  String? _firstName;
-  String? _lastName;
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    _firstNameController.text = "";
+    _lastNameController.text = "";
+    _emailController.text = "";
+    _phoneNumberController.text = "";
+    _addressController.text = "";
+    _confirmPasswordController.text = "";
+    _passwordController.text = "";
+    super.initState();
+  }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final user = RohyUser(
-        nom: _firstName,
-        prenom: _lastName,
+        nom: _firstNameController.text,
+        prenom: _lastNameController.text,
         email: _emailController.text,
         //phone: _phoneNumberController,
         //address: _addressController,
@@ -50,6 +63,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Text(''),
                   GestureDetector(
                     child: Padding(
                       padding: EdgeInsets.all(10.0),
@@ -103,7 +117,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                   ),
                   InputText(
-                    textEditingController: _lastNameController,
+                    textEditingController: _emailController,
                     hintText: 'Email',
                     errorText : 'Entrer votre email',
                     type: TextInputType.emailAddress,
@@ -139,7 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   SizedBox(height: 16.0),
                   InputText(
-                    textEditingController: _lastNameController,
+                    textEditingController: _addressController,
                     hintText: 'Adresse',
                     errorText : 'Entrer votre adresse',
                     validator: (value) {
@@ -150,7 +164,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                   ),
                   InputText(
-                    textEditingController: _lastNameController,
+                    textEditingController: _passwordController,
                     hintText: 'Mot de passe',
                     errorText : '',
                     validator: (value) {
@@ -158,7 +172,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                   ),
                   InputText(
-                    textEditingController: _lastNameController,
+                    textEditingController: _confirmPasswordController,
                     hintText: 'Confirmer votre mot de passe',
                     errorText : '',
                     validator: (value) {
@@ -166,7 +180,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                   ),
                   CustomButton(
-                    onTap: (){},
+                    onTap: (){
+
+                    },
                     buttonColor: quaternaryColor,
                     buttonText: 'Modifier',
                     textColor: Colors.white,
