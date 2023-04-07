@@ -22,7 +22,6 @@ class VoteOnPostUseCase {
     Map<String, double> voteSummary = {};
     voteSummary["votants"] = votes.length.toDouble();
     voteSummary["averageVote"] = averageVote;
-    Logger().d(voteSummary);
     return voteSummary;
   }
 }

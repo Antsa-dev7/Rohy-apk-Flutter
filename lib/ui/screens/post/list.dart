@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -122,18 +123,21 @@ class _PostsScreenState extends State<PostsScreen> {
                                 children: [
                                   ReactionSummary(objectId: snapshot.data![index].id),
                                   Spacer(),
+                                  CommentSummary(count: 10),
+                                  Spacer(),
                                   VoteSummary(objectId: snapshot.data![index].id)
                                 ]
                             ),
                             Divider(),
-                            Row(
-                              children: [
-                                ReactionWidget(objectId: snapshot.data![index].id),
-                                CommentSummary(count: 10),
-                                Spacer(),
-                                VoteWidget(objectId: snapshot.data![index].id)
-                              ],
-                            ),
+                            if (FirebaseAuth.instance.currentUser != null)
+                              Row(
+                                children: [
+                                  ReactionWidget(objectId: snapshot.data![index].id),
+                                  Text("Commenter"),
+                                  Spacer(),
+                                  VoteWidget(objectId: snapshot.data![index].id)
+                                ],
+                              ),
                           ]
                       ),
                     ),
