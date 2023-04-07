@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rohy/constants.dart';
+import 'package:rohy/ui/providers/user_interaction_provider.dart';
+import 'package:rohy/ui/providers/user_provider.dart';
 import 'package:rohy/ui/screens/authscreen.dart';
 import 'package:rohy/ui/screens/home.dart';
 
@@ -12,7 +15,6 @@ class LoginLogoutButton extends StatelessWidget {
     var user = FirebaseAuth.instance.currentUser;
     return TextButton.icon(
       onPressed: () async {
-        await logout();
         if (user == null) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -22,6 +24,10 @@ class LoginLogoutButton extends StatelessWidget {
                   (route) => false);
         }
         else {
+          // Clear datas
+          Provider.of<UserProvider>(context, listen: false).unSetUser();
+          Provider.of<UserInteractionProvider>(context, listen: false).reset();
+          await logout();
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

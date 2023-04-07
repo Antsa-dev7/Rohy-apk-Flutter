@@ -16,8 +16,8 @@ class RohyUser {
   String? status;
   String? photoURL;
   List<EntepriseVote>? enterpriseVotes;
-  List<PostVote>? postVotes;
-  List<ReactionPost>? postReactions;
+  Map? postVotes;
+  Map? postReactions;
 
   RohyUser(
       {this.email,
@@ -45,6 +45,8 @@ class RohyUser {
       'address': address,
       'status': status,
       'photoURL': photoURL,
+      'postVotes': postVotes,
+      'postReactions': postReactions
     };
   }
 
@@ -59,6 +61,8 @@ class RohyUser {
       address: map['address'] != null ? map['address'] as String : null,
       status: map['status'] != null ? map['status'] as String : null,
       photoURL: map['photoURL'] != null ? map['status'] as String : null,
+      postReactions: map['postReactions'] != null ? map['postReactions'] as Map: {},
+      postVotes: map['postVotes'] != null ? map['postVotes'] as Map: {},
     );
   }
 
@@ -73,8 +77,18 @@ class RohyUser {
       phone: json["phone"],
       address: json["address"],
       status: json["status"],
-      photoURL: json["photoURL"]
+      photoURL: json["photoURL"],
+      postReactions: json["postReactions"],
+      postVotes: json["postVotes"],
   );
 
+  void setReaction(String postId, String reaction) {
+    postReactions ??= {};
+    postReactions![postId] = reaction;
+  }
 
+  void setVote(String postId, double vote) {
+    postVotes ??= {};
+    postVotes![postId] = vote;
+  }
 }

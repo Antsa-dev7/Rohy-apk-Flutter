@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:rohy/ui/providers/home_screen.dart';
+import 'package:rohy/ui/providers/user_interaction_provider.dart';
 import 'package:rohy/ui/screens/contact.dart';
 import 'package:rohy/ui/screens/post/add_edit_post.dart';
 import 'package:rohy/ui/screens/post/list.dart';
@@ -25,18 +27,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Colors.white.withOpacity(0.90), Colors.white]),
-            ),
-            child: Scaffold(
-                // drawer: const MenuWidget(),
-                backgroundColor: Colors.transparent,
-                appBar: AppBarWidget(),
-                body: _widgets[Provider.of<HomeScreenProvider>(context, listen: true).index],
-                bottomNavigationBar: BottomBarWidget()));
+    return GestureDetector(
+      onTap: () {
+        Provider.of<UserInteractionProvider>(context, listen: false).showReactionChoices("none");
+      },
+      child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.white.withOpacity(0.90), Colors.white]),
+              ),
+              child: Scaffold(
+                  // drawer: const MenuWidget(),
+                  backgroundColor: Colors.transparent,
+                  appBar: AppBarWidget(),
+                  body: _widgets[Provider.of<HomeScreenProvider>(context, listen: true).index],
+                  bottomNavigationBar: BottomBarWidget())),
+    );
   }
 }

@@ -111,8 +111,8 @@ class Post {
   List<Map>? votes;
   int? votants;
   double? averageVotes;
-  Map<String, int>? reaction;
-  int? reactions;
+  Map? reactionDetails;
+  int? countReactions;
 
 
   Post({
@@ -140,8 +140,8 @@ class Post {
     this.votes,
     this.votants,
     this.averageVotes,
-    this.reaction,
-    this.reactions,
+    this.reactionDetails,
+    this.countReactions,
   });
 
   static Post initPost({String? id = "", })
@@ -175,8 +175,8 @@ class Post {
       'votes': votes,
       'votants': votants,
       'averageVotes': averageVotes,
-      'reaction' : reaction,
-      'reactions': reactions
+      'reactionDetails' : reactionDetails,
+      'countReactions': countReactions
     };
   }
 
@@ -224,8 +224,8 @@ class Post {
       map['votes'] != null ? map['votes'] as List<Map> : null,
       votants: map['votants'] != null ? map['votants'] as int: 0,
       averageVotes: map['averageVotes'] != null ? map['averageVotes'] as double: 0,
-      reaction: map['reaction'] != null ? map['reaction'] as  Map<String, int> : null,
-      reactions: map['reactions'] != null ? map['reactions'] as int: 0,
+      reactionDetails: map['reactionDetails'] != null ? map['reactionDetails'] as  Map : {},
+      countReactions: map['countReactions'] != null ? map['countReactions'] as int: 0,
     );
   }
 
@@ -253,8 +253,8 @@ class Post {
     'enterprise': enterprise,
     'votants': votants,
     'averageVotes': averageVotes,
-    'reaction' : reaction,
-    'reactions': reactions
+    'reactionDetails' : reactionDetails,
+    'countReactions': countReactions
   };
 
   static Post fromJson(Map<String, dynamic> json) {
@@ -284,8 +284,8 @@ class Post {
         votes: json["votes"],
         votants: json["votants"],
         averageVotes: json["averageVotes"],
-        reaction: json["reaction"],
-        reactions: json["reactions"]
+        reactionDetails: json["reactionDetails"],
+        countReactions: json["countReactions"]
     );
   }
 
