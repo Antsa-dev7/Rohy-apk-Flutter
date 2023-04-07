@@ -5,10 +5,10 @@ import 'package:rohy/application/use_cases/list_post_use_case.dart';
 import 'package:rohy/domain/post/post.dart';
 import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/ui/providers/user_provider.dart';
-import 'package:rohy/ui/widgets/comments.dart';
+import 'package:rohy/ui/widgets/common/comments.dart';
 import 'package:rohy/ui/widgets/post/post_item.dart';
-import 'package:rohy/ui/widgets/reaction.dart';
-import 'package:rohy/ui/widgets/vote.dart';
+import 'package:rohy/ui/widgets/common/reaction.dart';
+import 'package:rohy/ui/widgets/common/vote.dart';
 
 class PostsScreen extends StatefulWidget {
   PostsScreen({Key? key}) : super(key: key);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rohy/constants.dart';
 import 'package:rohy/infrastructure/iam/sign_mail.dart';
 import 'package:rohy/ui/screens/home.dart';
-import 'package:rohy/ui/widgets/custom_button.dart';
-import 'package:rohy/ui/widgets/custom_form_field.dart';
-import 'package:rohy/ui/widgets/error_text.dart';
+import 'package:rohy/ui/widgets/common/custom_button.dart';
+import 'package:rohy/ui/widgets/common/custom_form_field.dart';
+import 'package:rohy/ui/widgets/common/error_text.dart';
 
 class EmailAuthWidget extends StatefulWidget {
   const EmailAuthWidget({Key? key}) : super(key: key);

@@ -8,7 +8,7 @@ import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/infrastructure/iam/sign_google.dart';
 import 'package:rohy/ui/providers/user_provider.dart';
 import 'package:rohy/ui/screens/home.dart';
-import 'package:rohy/ui/widgets/custom_button.dart';
+import 'package:rohy/ui/widgets/common/custom_button.dart';
 
 class GoogleAuthWidget extends StatelessWidget {
   const GoogleAuthWidget({Key? key}) : super(key: key);
