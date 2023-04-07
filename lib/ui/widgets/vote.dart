@@ -59,7 +59,7 @@ class VoteSummary extends StatelessWidget {
     return Row(
         children: [
           Container(
-            child: Text("(${summary!['votants']})")
+            child: Text("(${summary!['votants']!.toInt()})")
           ),
           const SizedBox(width: 5),
           RatingBar.builder(
