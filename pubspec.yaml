@@ -59,7 +59,10 @@ dependencies:
 
   #read more packages
   readmore: ^2.1.0
-
+  #code internation phone number
+  intl_phone_field: ^3.1.0
+  #email validator
+  email_validator: ^2.1.17
   # rating
   flutter_rating_bar: ^4.0.1
 
