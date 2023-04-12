@@ -91,3 +91,14 @@ const TextStyle bottomBarTabTitleStyle = TextStyle(
 );
 
 const formPadding = 10.0;
+
+RegExp emailRegex = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+
+RegExp passwordRegex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+
+RegExp zipValid = RegExp(r"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", caseSensitive: false);
+
+// MG postal code validator
+RegExp zVal = RegExp(r"^\d{3}$");
+
+RegExp phoneRegex = RegExp(r'^(?:[+0][1-9])?[0-9]{10,12}$');

@@ -14,6 +14,10 @@ import '../iam/sign_mail.dart';
 
 class DirectoryRepository {
 
+  static Future<DocumentSnapshot<Object?>> readUser(uid) {
+    return FirebaseFirestore.instance.collection("users").doc(uid).get();
+  }
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<RohyUser> readRohyUser(uid) async {
@@ -26,30 +30,6 @@ class DirectoryRepository {
     final docSnap = await ref;
     if (docSnap.data() == null) return RohyUser();
     return RohyUser.fromJson(docSnap.data()!);
-  }
-
-  static void updateUser(
-      RohyUser rohyUser, String password, bool isSocialLogin) {
-    if (!isSocialLogin) {
-      FirebaseSignInByMail.updatePassword(password: password);
-    }
-    // Update a user
-    User user = FirebaseAuth.instance.currentUser!;
-    Logger _logger = Logger();
-    _logger.i(rohyUser.phone);
-    rohyUser.photoURL = user.photoURL;
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user.uid)
-        .set(rohyUser.toMap())
-        .then(
-          (value) {
-        return true;
-      },
-    ).catchError((e) {
-      print(e);
-    });
-    //showToast("Votre compte a été mis à jour !");
   }
 
 
