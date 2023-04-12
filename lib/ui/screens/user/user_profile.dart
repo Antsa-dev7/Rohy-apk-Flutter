@@ -99,14 +99,14 @@ class _UserFormState extends State<UserProfile> {
               _lastNameController.text = "${rohyUser.nom}";
               _firstNameController.text = "${rohyUser.prenom}";
               _emailController.text = "${rohyUser.email}";
-              /*getPhoneNumber("${rohyUser.phone != null ? rohyUser.phone : ''}")
+              getPhoneNumber("${rohyUser.phone != null ? rohyUser.phone : ''}")
                   .then((val) {
                 _initialPhoneNumber = val;
                 print("Num $val");
-                _phoneController.text = _initialPhoneNumber.parseNumber().replaceAll("+", "");
+                _phoneNumberController.text = _initialPhoneNumber.parseNumber().replaceAll("+", "");
               });
               _addressController.text =
-              "${rohyUser.address != null ? rohyUser.address : ''}";*/
+              "${rohyUser.address != null ? rohyUser.address : ''}";
 
               return Container(
                 padding: EdgeInsets.all(formPadding),
@@ -280,14 +280,22 @@ class _UserFormState extends State<UserProfile> {
     );
   }
 
+  Future<PhoneNumber> getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber);
+    return number;
+  }
+
   Future<void> _updateUser(String phoneNumber, bool isSocialLogin) async {
-    RohyUser? rohyUser = Provider
-        .of<UserProvider>(context, listen: false)
-        .user;
-    rohyUser?.email = _emailController.text;
-    rohyUser?.prenom = _firstNameController.text;
-    rohyUser?.nom = _lastNameController.text;
-    rohyUser?.phone = phoneNumber;
-    rohyUser?.address = _addressController.text;
+    RohyUser? rohyUser = Provider.of<UserProvider>(context, listen: false).user;
+    rohyUser!.email = _emailController.text;
+    rohyUser!.prenom = _firstNameController.text;
+    rohyUser!.nom = _lastNameController.text;
+    rohyUser!.phone = _phoneNumberController.text;
+    rohyUser!.address = _addressController.text;
+
+    DirectoryRepository.updateUser(
+        rohyUser, _passwordController.text, isSocialLogin);
+    Provider.of<UserProvider>(context, listen: false).setUser(rohyUser, "UpdateUser");
   }
 }

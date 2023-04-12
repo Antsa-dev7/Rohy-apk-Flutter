@@ -9,7 +9,9 @@ import 'package:rohy/domain/user/enterprise.dart';
 import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/infrastructure/repositories/transformer.dart';
 
+import '../../ui/screens/toast.dart';
 import '../iam/sign_mail.dart';
+import '../iam/update_password.dart';
 
 
 class DirectoryRepository {
@@ -30,6 +32,30 @@ class DirectoryRepository {
     final docSnap = await ref;
     if (docSnap.data() == null) return RohyUser();
     return RohyUser.fromJson(docSnap.data()!);
+  }
+
+  static void updateUser(
+      RohyUser rohyUser, String password, bool isSocialLogin) {
+    if (!isSocialLogin) {
+      FirebaseAuthMethods.updatePassword(password: password);
+    }
+    // Update a user
+    User user = FirebaseAuth.instance.currentUser!;
+    Logger _logger = Logger();
+    _logger.i(rohyUser.phone);
+    rohyUser.photoURL = user.photoURL;
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user.uid)
+        .set(rohyUser.toMap())
+        .then(
+          (value) {
+        return true;
+      },
+    ).catchError((e) {
+      print(e);
+    });
+    showToast("Votre compte a été mis à jour !");
   }
 
 
