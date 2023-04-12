@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -9,8 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:rohy/infrastructure/repositories/directories.dart';
 import '../../../constants.dart';
 import '../../../domain/user/user.dart';
-import '../../providers/home_screen.dart';
-import '../../providers/update_user.dart';
 import '../../providers/user_provider.dart';
 import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_form_field.dart';
