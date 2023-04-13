@@ -12,7 +12,7 @@ class VoteOnPostUseCase {
 
   Future<Map<String, double>> execute(RohyUser user, String postId, double vote) async {
     await _repository.addOrUpdateVote(user, postId, vote);
-    List<PostVote> votes = await _repository.loadVotes(postId);
+    List<VoteOnObject> votes = await _repository.loadVotes(postId);
     await _directoryRepository.addOrUpdateUserPostVote(user, postId, vote);
     // Update post vote average and count
     var sum = 0.0;

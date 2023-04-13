@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+import 'package:rohy/application/use_cases/comment_on_post.dart';
+import 'package:rohy/application/use_cases/delete_comment_on_post.dart';
+import 'package:rohy/application/use_cases/list_comments_on_object.dart';
 import 'package:rohy/application/use_cases/react_on_post.dart';
 import 'package:rohy/application/use_cases/vote_on_post.dart';
 import 'package:rohy/domain/user/user.dart';
+
+import '../../domain/post/post.dart';
 
 class UserInteractionProvider extends ChangeNotifier {
 
@@ -91,5 +96,38 @@ class UserInteractionProvider extends ChangeNotifier {
     _reactionsSummaries = {};
     _votes = {};
     _votesSummaries = {};
+  }
+
+  // Comments
+  String _currentCommentObjectId = "";
+  List<CommentOnObject> _currentComments = [];
+
+  void setCurrentCommentObjectId(String objectId, ObjectType objectType) async {
+    _currentCommentObjectId = objectId;
+    ListCommentsOnObjectUseCase listCommentsOnPostUseCase = ListCommentsOnObjectUseCase();
+    _currentComments = await listCommentsOnPostUseCase.execute(objectId, objectType);
+    notifyListeners();
+  }
+
+  String get currentCommentObjectId {
+    return _currentCommentObjectId;
+  }
+
+  List<CommentOnObject> get currentComments {
+    return _currentComments;
+  }
+
+  Future<void> addComment(RohyUser user, String objectId, String text) async {
+    CommentOnPostUseCase usecase = CommentOnPostUseCase();
+    _currentComments = await usecase.execute(user, objectId, text);
+    notifyListeners();
+  }
+
+  Future<void> deleteComment(String objectId, String commentId) async {
+    if (objectId.isNotEmpty && commentId.isNotEmpty) {
+      DeleteCommentOnPostUseCase usecase = DeleteCommentOnPostUseCase();
+      _currentComments = await usecase.execute(objectId, commentId);
+      notifyListeners();
+    }
   }
 }

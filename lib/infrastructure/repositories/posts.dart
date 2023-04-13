@@ -92,55 +92,34 @@ class PostRepository {
     var doc = voteReference.doc();
     if (voteData.isNotEmpty) {
       // doc = _voteReference.doc((Vote.fromJson(voteData[0] as Map<String, dynamic>);
-      doc = voteReference.doc(PostVote
+      doc = voteReference.doc(VoteOnObject
           .fromMap(voteData[0] as Map)
           .id);
     }
-    PostVote _vote = PostVote(vote: 0);
+    VoteOnObject _vote = VoteOnObject(vote: 0);
     _vote.id = doc.id;
     _vote.vote = vote;
     _vote.rohyUser = user.toMap();
+    _vote.objectId = postId;
     await doc.set(_vote.toJson());
   }
 
-  Future<List<PostVote>> loadVotes(String postId) async {
+  Future<List<VoteOnObject>> loadVotes(String postId) async {
      DocumentReference _postReference = _firestore.collection(
         _collectionName).doc(postId);
     final voteReference = _postReference.collection("votes");
     QuerySnapshot voteSnapshot = await voteReference.where(
         "vote", isGreaterThan: 0).get();
     var voteData = voteSnapshot.docs.map((doc) => doc.data()).toList();
-    List<PostVote> toRet = List.empty(growable: true);
+    List<VoteOnObject> toRet = List.empty(growable: true);
     voteData.forEach((element) =>
-        toRet.add(PostVote.fromMap(element as Map)));
+        toRet.add(VoteOnObject.fromMap(element as Map)));
     return toRet;
   }
 
-  Future<void> addOrUpdateUserPostVote(RohyUser user, String postId, double vote) async {
-    if (user.uid != null) {
-      DocumentReference _userReference = _firestore.collection(
-          "users").doc(user.uid);
-      CollectionReference _voteReference = _userReference.collection(
-          "votesPost");
-      QuerySnapshot voteSnapshot = await _voteReference.where(
-          "postId", isEqualTo: postId).get();
-      final voteData = voteSnapshot.docs.map((doc) => doc.data()).toList();
-      var doc = _voteReference.doc();
-      if (voteData.isNotEmpty) {
-        doc = _voteReference.doc(PostVote
-            .fromMap(voteData[0] as Map)
-            .id);
-      }
-      PostVote _vote = PostVote(vote: 0);
-      _vote.id = doc.id;
-      _vote.vote = vote;
-      _vote.postId = postId;
-      await doc.set(_vote.toJson());
-    }
-  }
 
   // React on post
-  Future<void> addOrUpdatePostReaction(RohyUser user, String postId, String type) async {
+  Future<void> addOrUpdateReaction(RohyUser user, String postId, String type) async {
     DocumentReference _postReference = _firestore.collection(
         _collectionName).doc(postId);
     CollectionReference _reactionReference = _postReference.collection("reactions");
@@ -149,27 +128,27 @@ class PostRepository {
     var reactionData = reactionSnapshot.docs.map((doc) => doc.data()).toList();
     var doc = _reactionReference.doc();
     if (reactionData.isNotEmpty) {
-      doc = _reactionReference.doc(ReactionPost
+      doc = _reactionReference.doc(ReactionOnObject
           .fromMap(reactionData[0] as Map)
           .id);
     }
-    ReactionPost reaction = ReactionPost();
+    ReactionOnObject reaction = ReactionOnObject();
     reaction.id = doc.id;
-    reaction.postId = postId;
+    reaction.objectId = postId;
     reaction.type = type;
     reaction.rohyUser = user.toMap();
     await doc.set(reaction.toJson());
   }
 
-  Future<List<ReactionPost>> loadReactions(String postId) async {
+  Future<List<ReactionOnObject>> loadReactions(String postId) async {
     DocumentReference postReference = _firestore.collection(
         _collectionName).doc(postId);
     final reactionReference = postReference.collection("reactions");
     QuerySnapshot reactionSnapshot = await reactionReference.get();
     var reactionData = reactionSnapshot.docs.map((doc) => doc.data()).toList();
-    List<ReactionPost> toRect = List.empty(growable: true);
+    List<ReactionOnObject> toRect = List.empty(growable: true);
     for (var element in reactionData) {
-      toRect.add(ReactionPost.fromMap(element as Map));
+      toRect.add(ReactionOnObject.fromMap(element as Map));
     }
     return toRect;
   }
@@ -180,5 +159,62 @@ class PostRepository {
         .doc(id);
 
     await post.delete();
+  }
+
+  Future<List<CommentOnObject>> loadComments(String postId) async {
+    DocumentReference postReference = _firestore.collection(
+        _collectionName).doc(postId);
+    final reactionReference = postReference.collection("comments");
+    QuerySnapshot reactionSnapshot = await reactionReference.get();
+    var data = reactionSnapshot.docs.map((doc) => doc.data()).toList();
+    List<CommentOnObject> toRet = List.empty(growable: true);
+    for (var element in data) {
+      toRet.add(CommentOnObject.fromMap(element as Map));
+    }
+    return toRet;
+  }
+
+  // React on post
+  Future<void> addOrUpdateComment(RohyUser user, String postId, String commentText) async {
+    DocumentReference _postReference = _firestore.collection(
+        _collectionName).doc(postId);
+    CollectionReference _commentReference = _postReference.collection("comments");
+    QuerySnapshot commentSnapshot = await _commentReference.where(
+        "rohyUser.uid", isEqualTo: user.uid).get();
+    var data = commentSnapshot.docs.map((doc) => doc.data()).toList();
+    var doc = _commentReference.doc();
+    if (data.isNotEmpty) {
+      doc = _commentReference.doc(ReactionOnObject
+          .fromMap(data[0] as Map)
+          .id);
+    }
+    CommentOnObject comment = CommentOnObject(comment: commentText);
+    comment.id = doc.id;
+    comment.objectId = postId;
+    comment.rohyUser = user.toMap();
+    await doc.set(comment.toJson());
+  }
+
+  Future<void> removeComment(String postId, String commentId) async {
+    final comment = _firestore
+        .collection(_collectionName)
+        .doc(postId).collection("comments").doc(commentId);
+    comment.delete();
+  }
+
+
+
+  Future<void> updatePostCommentsCount(String postId, int comments) async {
+    final ref =_firestore
+        .collection(_collectionName)
+        .doc(postId)
+        .get();
+
+    final docSnap = await ref;
+    var post = Post.fromJson(docSnap.data()!);
+    post.countComments = comments;
+    DocumentReference postReference = FirebaseFirestore.instance.collection(
+        _collectionName).doc(postId);
+    postReference.set(post.toMap());
   }
 }

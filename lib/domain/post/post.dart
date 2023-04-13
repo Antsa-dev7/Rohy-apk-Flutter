@@ -1,14 +1,15 @@
-class PostVote {
+
+class VoteOnObject {
   String? id;
   double vote = 0;
   Map? rohyUser;
-  String? postId;
+  String? objectId;
 
-  PostVote({
+  VoteOnObject({
     this.id,
     required this.vote,
     this.rohyUser,
-    this.postId,
+    this.objectId,
   });
 
   Map<String, dynamic> toMap() {
@@ -16,16 +17,16 @@ class PostVote {
       'id': id,
       'vote': vote,
       'rohyUser': rohyUser,
-      'postId': postId,
+      'objectId': objectId,
     };
   }
 
-  factory PostVote.fromMap(map) {
-    return PostVote(
+  factory VoteOnObject.fromMap(map) {
+    return VoteOnObject(
       id: map['id'] != null ? map['id'] as String : null,
       vote: map['vote'] != null ? map['vote'] as double : 0,
       rohyUser: map['rohyUser'] != null ? map['rohyUser'] as Map: null,
-      postId: map['postId'] != null ? map['postId'] as String: null,
+      objectId: map['objectId'] != null ? map['objectId'] as String: null,
     );
   }
 
@@ -34,33 +35,33 @@ class PostVote {
         'id': id,
         'vote': vote,
         'rohyUser': rohyUser,
-        'postId': postId,
+        'objectId': objectId,
       };
 
-  static PostVote fromJson(Map<String, dynamic> json) => PostVote(
+  static VoteOnObject fromJson(Map<String, dynamic> json) => VoteOnObject(
       id: json["id"],
       vote: json["vote"],
-      postId: json["postId"]);
+      objectId: json["objectId"]);
 }
 
-class ReactionPost{
+class ReactionOnObject{
   String? id;
   String? type;
   Map? rohyUser;
-  String? postId;
+  String? objectId;
 
-  ReactionPost({
+  ReactionOnObject({
     this.id,
     this.type,
     this.rohyUser,
-    this.postId
+    this.objectId
   });
-  factory ReactionPost.fromMap(map) {
-    return ReactionPost(
+  factory ReactionOnObject.fromMap(map) {
+    return ReactionOnObject(
       id: map['id'] != null ? map['id'] as String : null,
       type: map['type'] != null ? map['type'] as String : null,
       rohyUser: map['rohyUser'] != null ? map['rohyUser'] as Map: null,
-      postId: map['postId'] != null ? map['postId'] as String: null,
+      objectId: map['objectId'] != null ? map['objectId'] as String: null,
     );
   }
   Map<String, dynamic> toMap() {
@@ -68,7 +69,7 @@ class ReactionPost{
       'id': id,
       'type': type,
       'rohyUser': rohyUser,
-      'postId': postId,
+      'objectId': objectId,
     };
   }
   Map<String, dynamic> toJson() =>
@@ -76,14 +77,55 @@ class ReactionPost{
         'id': id,
         'type': type,
         'rohyUser': rohyUser,
-        'postId': postId,
+        'objectId': objectId,
       };
-  static ReactionPost fromJson(Map<String, dynamic> json) => ReactionPost(
+  static ReactionOnObject fromJson(Map<String, dynamic> json) => ReactionOnObject(
       id: json["id"],
       type: json["type"],
-      postId: json["postId"]);
+      objectId: json["objectId"]);
 
 }
+
+class CommentOnObject {
+  String? id;
+  String comment = "";
+  Map? rohyUser;
+  String? objectId;
+
+  CommentOnObject({
+    this.id,
+    required this.comment,
+    this.rohyUser,
+    this.objectId,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'comment': comment,
+      'rohyUser': rohyUser,
+      'objectId': objectId,
+    };
+  }
+
+  factory CommentOnObject.fromMap(map) {
+    return CommentOnObject(
+      id: map['id'] != null ? map['id'] as String : null,
+      comment: map['comment'] != null ? map['comment'] as String : "",
+      rohyUser: map['rohyUser'] != null ? map['rohyUser'] as Map: null,
+      objectId: map['objectId'] != null ? map['objectId'] as String: null,
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      {
+        'id': id,
+        'comment': comment,
+        'rohyUser': rohyUser,
+        'objectId': objectId,
+      };
+}
+
 
 class Post {
 
@@ -113,6 +155,7 @@ class Post {
   double? averageVotes;
   Map? reactionDetails;
   int? countReactions;
+  int? countComments;
 
 
   Post({
@@ -142,6 +185,7 @@ class Post {
     this.averageVotes,
     this.reactionDetails,
     this.countReactions,
+    this.countComments
   });
 
   static Post initPost({String? id = "", })
@@ -176,7 +220,8 @@ class Post {
       'votants': votants,
       'averageVotes': averageVotes,
       'reactionDetails' : reactionDetails,
-      'countReactions': countReactions
+      'countReactions': countReactions,
+      'countComments': countComments,
     };
   }
 
@@ -226,6 +271,7 @@ class Post {
       averageVotes: map['averageVotes'] != null ? map['averageVotes'] as double: 0,
       reactionDetails: map['reactionDetails'] != null ? map['reactionDetails'] as  Map : {},
       countReactions: map['countReactions'] != null ? map['countReactions'] as int: 0,
+      countComments: map['countComments'] != null ? map['countComments'] as int: 0,
     );
   }
 
@@ -254,8 +300,9 @@ class Post {
     'votants': votants,
     'averageVotes': averageVotes,
     'reactionDetails' : reactionDetails,
-    'countReactions': countReactions
-  };
+    'countReactions': countReactions,
+    'countComments': countComments,
+    };
 
   static Post fromJson(Map<String, dynamic> json) {
     return Post
@@ -285,7 +332,8 @@ class Post {
         votants: json["votants"],
         averageVotes: json["averageVotes"],
         reactionDetails: json["reactionDetails"],
-        countReactions: json["countReactions"]
+        countReactions: json["countReactions"],
+        countComments: json["countReactions"],
     );
   }
 
