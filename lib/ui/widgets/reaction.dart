@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:rohy/ui/providers/user_interaction_provider.dart';
 import 'package:rohy/ui/widgets/reaction_button.dart';
@@ -21,7 +22,6 @@ class ReactionWidget extends StatelessWidget {
     );
     if (FirebaseAuth.instance.currentUser == null)
       reaction = "none";
-
     return IndexedStack(
         clipBehavior: Clip.none,
         index: showChoices ? 0 : 1,

@@ -49,7 +49,7 @@ const TextStyle postContentStyle = TextStyle(
   fontSize: 15,
   color: Colors.black,
   fontWeight: FontWeight.normal,
-  letterSpacing: 1,
+  letterSpacing: 0,
 );
 
 const TextStyle postHeaderTitleStyle = TextStyle(
@@ -87,6 +87,13 @@ const TextStyle tabTitleStyle = TextStyle(
 const TextStyle bottomBarTabTitleStyle = TextStyle(
   fontSize: 14,
   color: Colors.white,
+  letterSpacing: 0,
+);
+
+const TextStyle moreTextStyle = TextStyle(
+  fontSize: 14,
+  color: quinaryColor,
+  fontWeight: FontWeight.normal,
   letterSpacing: 0,
 );
 

@@ -134,20 +134,20 @@ class DirectoryRepository {
      return votes.first;
   }
 
-  Future<List<PostVote>> readRohyUserPostVotes(uid) async {
+  Future<List<VoteOnObject>> readRohyUserPostVotes(uid) async {
     var votes = await _firestore
         .collection("users")
         .doc(uid)
-        .collection("votesPost").snapshots().transform(Utils.transformer(PostVote.fromJson));
+        .collection("votesPost").snapshots().transform(Utils.transformer(VoteOnObject.fromJson));
     return votes.first;
   }
 
   //Reaction
-  Future<List<ReactionPost>> readRohyUserPostReactions(uid) async {
+  Future<List<ReactionOnObject>> readRohyUserPostReactions(uid) async {
     var reactions = await _firestore
         .collection("users")
         .doc(uid)
-        .collection("reactionsPost").snapshots().transform(Utils.transformer(ReactionPost.fromJson));
+        .collection("reactionsPost").snapshots().transform(Utils.transformer(ReactionOnObject.fromJson));
     return reactions.first;
   }
 
