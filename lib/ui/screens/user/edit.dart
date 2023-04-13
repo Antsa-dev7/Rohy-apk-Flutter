@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:rohy/ui/screens/enterprise/enterprise.dart';
 import 'package:rohy/ui/screens/user/user_profile.dart';
 import '../../../constants.dart';
 
@@ -74,7 +75,7 @@ class _UserScreenState extends State<UserScreen> {
                 uid: "${user?.uid}",
                 isSocialLogin: isSocialLogin,
                 socialProvider: socialProvider),
-            //EnterprisesScreen(),
+            EnterprisesScreen(),
           ],
         ),
       ),
