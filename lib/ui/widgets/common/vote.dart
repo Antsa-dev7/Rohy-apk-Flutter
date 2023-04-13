@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:rohy/constants.dart';
 import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/ui/providers/user_provider.dart';
 
@@ -59,24 +60,10 @@ class VoteSummary extends StatelessWidget {
     return Row(
         children: [
           Container(
-            child: Text("(${summary!['votants']!.toInt()})")
+            child: Text("${summary!['votants']!.toInt()} vote(s): ")
           ),
           const SizedBox(width: 5),
-          RatingBar.builder(
-              initialRating: summary['averageVote'] ?? 0,
-              minRating: 0,
-              // Can't vote if not connected
-              ignoreGestures: true,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemSize: 20,
-              itemBuilder: (context, _) =>
-                  const Icon(Icons.star, color: Colors.amber,),
-              onRatingUpdate: (rating) {
-
-              }
-              ),
+          Text("${summary!['averageVote']!.toStringAsFixed(2)}/5"),
         ]
     );
   }

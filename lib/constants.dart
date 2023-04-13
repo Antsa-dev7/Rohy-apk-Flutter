@@ -49,7 +49,7 @@ const TextStyle postContentStyle = TextStyle(
   fontSize: 15,
   color: Colors.black,
   fontWeight: FontWeight.normal,
-  letterSpacing: 1,
+  letterSpacing: 0,
 );
 
 const TextStyle postHeaderTitleStyle = TextStyle(
@@ -90,6 +90,7 @@ const TextStyle bottomBarTabTitleStyle = TextStyle(
   letterSpacing: 0,
 );
 
+<<<<<<< lib/constants.dart
 const formPadding = 10.0;
 
 RegExp emailRegex = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
@@ -102,3 +103,12 @@ RegExp zipValid = RegExp(r"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", caseSensitive: 
 RegExp zVal = RegExp(r"^\d{3}$");
 
 RegExp phoneRegex = RegExp(r'^(?:[+0][1-9])?[0-9]{10,12}$');
+
+const TextStyle moreTextStyle = TextStyle(
+  fontSize: 14,
+  color: quinaryColor,
+  fontWeight: FontWeight.normal,
+  letterSpacing: 0,
+);
+
+const formPadding = 10.0;

@@ -7,6 +7,7 @@ import 'package:rohy/ui/providers/user_interaction_provider.dart';
 import 'package:rohy/ui/providers/user_provider.dart';
 import 'package:rohy/ui/screens/contact.dart';
 import 'package:rohy/ui/screens/post/add_edit_post.dart';
+import 'package:rohy/ui/screens/post/comments.dart';
 import 'package:rohy/ui/screens/post/list.dart';
 import 'package:rohy/ui/screens/post_enterprise_tab.dart';
 import 'package:rohy/ui/screens/user/edit.dart';
@@ -22,6 +23,8 @@ class HomeScreen extends StatelessWidget {
     ContactScreen(),
     AddEditPostScreen(),
     UserScreen()
+    EditProfileScreen(),
+    CommentsScreen()
   ];
 
 

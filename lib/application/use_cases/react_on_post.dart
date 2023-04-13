@@ -11,8 +11,8 @@ class ReactOnPostUseCase {
   final DirectoryRepository _directoryRepository = DirectoryRepository();
 
   Future<Map<String?, int>> execute(RohyUser user, String postId, String reaction) async {
-    await _repository.addOrUpdatePostReaction(user, postId, reaction);
-    List<ReactionPost> reactions = await _repository.loadReactions(postId);
+    await _repository.addOrUpdateReaction(user, postId, reaction);
+    List<ReactionOnObject> reactions = await _repository.loadReactions(postId);
     await _directoryRepository.addOrUpdateUserPostReaction(user, postId, reaction);
     Map<String?, int> reactionDetails = {};
     reactions.forEach((element) {
