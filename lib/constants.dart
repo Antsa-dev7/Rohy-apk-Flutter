@@ -90,7 +90,7 @@ const TextStyle bottomBarTabTitleStyle = TextStyle(
   letterSpacing: 0,
 );
 
-<<<<<<< lib/constants.dart
+
 const formPadding = 10.0;
 
 RegExp emailRegex = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
@@ -111,4 +111,3 @@ const TextStyle moreTextStyle = TextStyle(
   letterSpacing: 0,
 );
 
-const formPadding = 10.0;
