@@ -1,197 +1,84 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:rohy/constants.dart';
-import 'package:rohy/domain/user/user.dart';
-import '../../widgets/common/custom_button.dart';
-import '../../widgets/common/input_text.dart';
+import 'package:logger/logger.dart';
+import 'package:rohy/ui/screens/user/user_profile.dart';
+import '../../../constants.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+class UserScreen extends StatefulWidget {
+  const UserScreen({Key? key}) : super(key: key);
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  _UserScreenState createState() => _UserScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  final _formKey = GlobalKey<FormState>();
+class _UserScreenState extends State<UserScreen> {
+  final Logger logger = Logger();
+  User? user;
   bool isSocialLogin = false;
-
-  // Définition des TextEditingController pour les champs de saisie
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  String socialProvider = "";
 
   @override
   void initState() {
-    _firstNameController.text = "";
-    _lastNameController.text = "";
-    _emailController.text = "";
-    _phoneNumberController.text = "";
-    _addressController.text = "";
-    _confirmPasswordController.text = "";
-    _passwordController.text = "";
     super.initState();
+    logger.i(">>initState");
+    user = FirebaseAuth.instance.currentUser!;
+    if (user != null) {
+      logger.i("Provider : ${user?.providerData}");
+      if (user?.providerData != null) {
+        if (user?.providerData.first.providerId != 'password') {
+          isSocialLogin = true;
+          socialProvider = "${user?.providerData.first.providerId}";
+        }
+      }
+    }
+    logger.i("user: $user, $isSocialLogin");
+    logger.i("<<initState");
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      final user = RohyUser(
-        nom: _firstNameController.text,
-        prenom: _lastNameController.text,
-        email: _emailController.text,
-        //phone: _phoneNumberController,
-        //address: _addressController,
-        //photoURL: _photoController,
-      );
-      //_addContactUseCase.execute(contact);
-    }
-  }
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(''),
-                  GestureDetector(
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        child: Stack(
-                          children: <Widget>[
-                             Align(
-                                alignment: Alignment.bottomCenter,
-                                child: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                "${FirebaseAuth.instance.currentUser?.photoURL}"),
-                                  radius: 60,
-                                ),
-                              ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 60, top: 30),
-                                child: CircleAvatar(
-                                  radius: 20,
-                                  backgroundColor: quaternaryColor,
-                                  child:  Icon(Icons.edit,size: 30,color: Colors.white,),
-                                ),
-                              )
-                            ),
-                          ],
-                        ),
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title: Column(
+              children: [
+                TabBar(
+                  onTap: (index) {
+                    //Provider.of<ScreenProvider>(context, listen: false)
+                    //.setEntepriseIndex(0, Enterprise.initEnterprise());
+                  },
+                  indicatorColor: Colors.white,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        "Informations personnelles",
+                        style: tabTitleStyle,
                       ),
                     ),
-                    onTap: (){},
-                  ),
-                  InputText(
-                    textEditingController: _firstNameController,
-                    hintText: 'Nom',
-                    errorText : 'Entrer votre nom',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Entrer votre nom';
-                      }
-                      return null;
-                    },
-                  ),
-                  InputText(
-                    textEditingController: _lastNameController,
-                    hintText: 'Prénom',
-                    errorText : '',
-                    validator: (value) {
-                      return null;
-                    },
-                  ),
-                  InputText(
-                    textEditingController: _emailController,
-                    hintText: 'Email',
-                    errorText : 'Entrer votre email',
-                    type: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return ("Entrer votre email");
-                      }
-                      if (!EmailValidator.validate(value)) {
-                        return ('Entrer un addresse email valide');
-                      }
-                      return null;
-                    },
-                  ),
-                  IntlPhoneField(
-                    controller: _phoneNumberController,
-                    decoration: InputDecoration(
-                      labelText: 'Téléphone',
-                      border: OutlineInputBorder(),
-                    ),
-                    disableLengthCheck : true,
-                    initialCountryCode: 'FR',
-                    searchText: 'Rechercher pays',
-                    onChanged: (phone) {
-                      print(phone.completeNumber);
-                    },
-                    invalidNumberMessage : 'Numéro téléplone invalide',
-                    validator: (value) {
-                      if (value == null ) {
-                        return ("Entrer votre numéro télephone");
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 16.0),
-                  InputText(
-                    textEditingController: _addressController,
-                    hintText: 'Adresse',
-                    errorText : 'Entrer votre adresse',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return ("Entrer votre adresse");
-                      }
-                      return null;
-                    },
-                  ),
-                  InputText(
-                    textEditingController: _passwordController,
-                    hintText: 'Mot de passe',
-                    errorText : '',
-                    validator: (value) {
-                      return null;
-                    },
-                  ),
-                  InputText(
-                    textEditingController: _confirmPasswordController,
-                    hintText: 'Confirmer votre mot de passe',
-                    errorText : '',
-                    validator: (value) {
-                      return null;
-                    },
-                  ),
-                  CustomButton(
-                    onTap: (){
-
-                    },
-                    buttonColor: quaternaryColor,
-                    buttonText: 'Modifier',
-                    textColor: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                    Tab(
+                        child: Text(
+                          "Mes entreprises",
+                          style: tabTitleStyle,
+                        )),
+                  ],
+                ),
+              ],
+            )),
+        body: TabBarView(
+          children: [
+            UserProfile(
+                uid: "${user?.uid}",
+                isSocialLogin: isSocialLogin,
+                socialProvider: socialProvider),
+            //EnterprisesScreen(),
+          ],
         ),
-      );
-    }
+      ),
+    );
   }
+}
+

@@ -19,5 +19,6 @@ class UserProvider extends ChangeNotifier {
 
   void unSetUser() {
     _user = null;
+    notifyListeners();
   }
 }

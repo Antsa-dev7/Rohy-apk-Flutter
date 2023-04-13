@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/ui/providers/home_screen.dart';
 import 'package:rohy/ui/providers/user_interaction_provider.dart';
+import 'package:rohy/ui/providers/user_provider.dart';
 import 'package:rohy/ui/screens/contact.dart';
 import 'package:rohy/ui/screens/post/add_edit_post.dart';
 import 'package:rohy/ui/screens/post/comments.dart';
@@ -20,12 +22,14 @@ class HomeScreen extends StatelessWidget {
     PostAndEnterpriseTab(),
     ContactScreen(),
     AddEditPostScreen(),
+    UserScreen()
     EditProfileScreen(),
     CommentsScreen()
   ];
 
 
   const HomeScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

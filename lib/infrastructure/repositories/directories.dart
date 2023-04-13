@@ -2,14 +2,23 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
 import 'package:rohy/domain/category.dart';
 import 'package:rohy/domain/post/post.dart';
 import 'package:rohy/domain/user/enterprise.dart';
 import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/infrastructure/repositories/transformer.dart';
 
+import '../../ui/screens/toast.dart';
+import '../iam/sign_mail.dart';
+import '../iam/update_password.dart';
+
 
 class DirectoryRepository {
+
+  static Future<DocumentSnapshot<Object?>> readUser(uid) {
+    return FirebaseFirestore.instance.collection("users").doc(uid).get();
+  }
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -24,6 +33,31 @@ class DirectoryRepository {
     if (docSnap.data() == null) return RohyUser();
     return RohyUser.fromJson(docSnap.data()!);
   }
+
+  static void updateUser(
+      RohyUser rohyUser, String password, bool isSocialLogin) {
+    if (!isSocialLogin) {
+      FirebaseAuthMethods.updatePassword(password: password);
+    }
+    // Update a user
+    User user = FirebaseAuth.instance.currentUser!;
+    Logger _logger = Logger();
+    _logger.i(rohyUser.phone);
+    rohyUser.photoURL = user.photoURL;
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user.uid)
+        .set(rohyUser.toMap())
+        .then(
+          (value) {
+        return true;
+      },
+    ).catchError((e) {
+      print(e);
+    });
+    showToast("Votre compte a été mis à jour !");
+  }
+
 
   Stream<List<Enterprise>> findAllEnterprisesByUser(String uid) =>
       _firestore

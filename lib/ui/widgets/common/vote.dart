@@ -8,7 +8,7 @@ import 'package:rohy/constants.dart';
 import 'package:rohy/domain/user/user.dart';
 import 'package:rohy/ui/providers/user_provider.dart';
 
-import '../providers/user_interaction_provider.dart';
+import '../../providers/user_interaction_provider.dart';
 
 class VoteWidget extends StatelessWidget {
 
